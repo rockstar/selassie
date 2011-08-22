@@ -1,0 +1,3 @@
+Selassie is a simple toy server for use with Rasta.js.  It's implemented in
+Node.js, and can be tested against the server with the accompanying index.html
+page.
