@@ -9,6 +9,8 @@
   </body>
   <script>
       Rasta.url = 'http://localhost:8000';
-      Rasta.get('test', function(val) { alert(val); });
+      Rasta.set('test', 'success', function() {
+          Rasta.get('test', function(val) { alert(val); });
+      });
   </script>
 </html>
