@@ -4,9 +4,14 @@ var app = express.createServer();
 var storage = {test: 'success!'};
 
 app.get('/get/:key', function(req, res) {
+    console.log(req.query);
     var val = storage[req.params.key];
     if (val === undefined) { val = ''; }
-    res.send('"' + val + '"');
+    val = '"' + val + '"';
+    if (req.query.callback) {
+        val = req.query.callback + '(' + val + ')';
+    }
+    res.send(val);
 });
 
 console.log('Serving on port ' + PORT);
