@@ -3,14 +3,77 @@
 <html>
   <head>
     <title>Selassie test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script src="http://rastajs.errorjs.com/rasta.min.js"></script>
+    <script>Rasta.url = 'http://localhost:8000';</script>
+    <style>
+        .container {
+            margin: 200px auto;
+            text-align: center;
+            width: 350px;
+        }
+        .container .set_success,
+        .container .get_success {
+            background-color: #ffffe0;
+            border: 1px solid #888;
+            display: none;
+            height: 25px;
+            margin: 10px auto;
+            min-width: 100%;
+            padding-top: 8px;
+            width: 100%;
+        }
+        .container .input {
+            display: inline-block;
+            height: 20px;
+        }
+    </style>
   </head>
   <body>
+    <div class="container">
+
+          <div class="set_success"></div>
+          <input id="set_key" name="set_key" placeholder="Key" class="input" />
+          <input id="set_val" name="set_val" placeholder="Value" class="input" />
+          <input type="submit" value="Set" class="input" id="set"/>
+
+          <hr>
+
+          <div class="get_success"></div>
+          <input id="get_key" name="get_key" placeholder="Key" class="input" />
+          <input type="submit" value="Get" class="input" id="get"/>
+
+    </div>
   </body>
   <script>
-      Rasta.url = 'http://localhost:8000';
-      Rasta.set('test', 'success', function() {
-          Rasta.get('test', function(val) { alert(val); });
-      });
+    $('#set').click(function() {
+        var key = $('#set_key').val(),
+            val = $('#set_val').val();
+        Rasta.set(key, val, function() {
+            var success = $('.set_success');
+            success.html('Successfully set ' + key);
+            success.toggle(1000, function() {
+                setTimeout(function() {
+                    success.toggle(1000, function() {
+                        success.html('');
+                    });
+                }, 3000);
+            });
+        });
+    });
+    $('#get').click(function() {
+        var key = $('#get_key').val();
+        Rasta.get(key, function(val) {
+            var success = $('.get_success');
+            success.html('Value of ' + key + ' is ' + val);
+            success.toggle(1000, function() {
+                setTimeout(function() {
+                    success.toggle(1000, function() {
+                        success.html('');
+                    });
+                }, 5000);
+            });
+        });
+    });
   </script>
 </html>
