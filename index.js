@@ -4,7 +4,9 @@ var app = express.createServer();
 var storage = {test: 'success!'};
 
 app.get('/get/:key', function(req, res) {
-    res.send(storage[req.params.key]);
+    var val = storage[req.params.key];
+    if (val === undefined) { val = ''; }
+    res.send('"' + val + '"');
 });
 
 console.log('Serving on port ' + PORT);
