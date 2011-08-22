@@ -4,7 +4,6 @@ var app = express.createServer();
 var storage = {test: 'success!'};
 
 app.get('/get/:key', function(req, res) {
-    console.log(req.query);
     var val = storage[req.params.key];
     if (val === undefined) { val = ''; }
     val = '"' + val + '"';
